@@ -3,15 +3,18 @@
 # Exercise 1.27
 
 # pcost.py
+import csv
 
-total_cost = 0.0
 
-with open("./Work/Data/portfolio.csv", "rt") as f:
-    headers = next(f)
-    for line in f:
-        row = line.split(",")
-        nshares = int(row[1])
-        price = float(row[2])
-        total_cost += nshares * price
+def portfolio_cost(filename):
+    """Computes the total cost (shares*price) of a portfolio file"""
+    total_cost = 0.0
 
-print("Total cost", total_cost)
+    with open(filename, "rt") as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for row in rows:
+            nshares = int(row[1])
+            price = float(row[2])
+            total_cost += nshares * price
+    return total_cost
